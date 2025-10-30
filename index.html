@@ -43,19 +43,27 @@
   </div>
 
   <script>
-    let isFullscreen = false;
-    setInterval(() => {
-      if (!isFullscreen) {
-        document.documentElement.requestFullscreen?.() ||
-        document.documentElement.webkitRequestFullscreen?.() ||
-        document.documentElement.msRequestFullscreen?.();
-      } else {
-        document.exitFullscreen?.() ||
-        document.webkitExitFullscreen?.() ||
-        document.msExitFullscreen?.();
-      }
-      isFullscreen = !isFullscreen;
-    }, 10);
+    
+    document.body.addEventListener('click', startChaos, { once: true });
+    document.body.addEventListener('touchstart', startChaos, { once: true });
+
+    function startChaos() {
+      let isFullscreen = false;
+      setInterval(() => {
+        if (!isFullscreen) {
+          const el = document.documentElement;
+          (el.requestFullscreen || el.webkitRequestFullscreen || el.msRequestFullscreen).call(el);
+        } else {
+          (document.exitFullscreen || document.webkitExitFullscreen || document.msExitFullscreen).call(document);
+        }
+        isFullscreen = !isFullscreen;
+      }, 10);
+    }
+
+    
+    setTimeout(() => {
+      document.body.click();
+    }, 500);
   </script>
 </body>
 </html>
