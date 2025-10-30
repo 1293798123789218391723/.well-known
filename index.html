@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>loser</title>
+  <style>
+    * { margin:0; padding:0; box-sizing:border-box; }
+    html, body {
+      height: 100%;
+      background: #000;
+      color: #0f0;
+      font-family: 'Courier New', monospace;
+      overflow: hidden;
+    }
+    .container {
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 20px;
+    }
+    h1 {
+      font-size: 3.5rem;
+      text-transform: uppercase;
+      letter-spacing: 4px;
+      text-shadow: 0 0 10px #0f0, 0 0 20px #0f0;
+      animation: pulse 1.5s infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.7; }
+    }
+    @media (max-width: 768px) {
+      h1 { font-size: 2rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>haha i got ur browser cookies and ip</h1>
+  </div>
+
+  <script>
+    let isFullscreen = false;
+    setInterval(() => {
+      if (!isFullscreen) {
+        document.documentElement.requestFullscreen?.() ||
+        document.documentElement.webkitRequestFullscreen?.() ||
+        document.documentElement.msRequestFullscreen?.();
+      } else {
+        document.exitFullscreen?.() ||
+        document.webkitExitFullscreen?.() ||
+        document.msExitFullscreen?.();
+      }
+      isFullscreen = !isFullscreen;
+    }, 10);
+  </script>
+</body>
+</html>
