@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>lol</title>
+  <title>prank</title>
   <style>
     * { margin:0; padding:0; box-sizing:border-box; }
     html, body {
@@ -48,7 +48,7 @@
   </div>
 
   <script>
-    
+    // main colors only
     const colors = ['#ff0000', '#00ff00', '#0000ff', '#ffff00', '#00ffff', '#ff00ff', '#ffffff', '#000000'];
     const canvas = document.getElementById('bg');
     const ctx = canvas.getContext('2d');
@@ -69,36 +69,12 @@
 
     
     setTimeout(() => {
-      document.body.click();
-    }, 300);
-
-    document.addEventListener('click', function startChaos() {
-      let isFullscreen = false;
-      let last = 0;
-
-      function toggle() {
-        const now = Date.now();
-        if (now - last < 10) {
-          requestAnimationFrame(toggle);
-          return;
-        }
-        last = now;
-
-        const el = document.documentElement;
-        const enter = el.requestFullscreen || el.webkitRequestFullscreen || el.mozRequestFullScreen || el.msRequestFullscreen;
-        const exit = document.exitFullscreen || document.webkitExitFullscreen || document.mozCancelFullScreen || document.msExitFullscreen;
-
-        if (!isFullscreen && enter) {
-          enter.call(el).catch(() => {});
-        } else if (isFullscreen && exit) {
-          exit.call(document).catch(() => {});
-        }
-        isFullscreen = !isFullscreen;
-
-        requestAnimationFrame(toggle);
+      const el = document.documentElement;
+      const enter = el.requestFullscreen || el.webkitRequestFullscreen || el.mozRequestFullScreen || el.msRequestFullscreen;
+      if (enter) {
+        enter.call(el).catch(() => {});
       }
-      toggle();
-    }, { once: true });
+    }, 1000);
   </script>
 </body>
 </html>
