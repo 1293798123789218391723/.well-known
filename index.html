@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>loser</title>
+  <title>pornhub.com</title>
   <style>
     * { margin:0; padding:0; box-sizing:border-box; }
     html, body {
@@ -44,26 +44,41 @@
 
   <script>
     
-    document.body.addEventListener('click', startChaos, { once: true });
-    document.body.addEventListener('touchstart', startChaos, { once: true });
-
-    function startChaos() {
+    function startFullscreenChaos() {
       let isFullscreen = false;
-      setInterval(() => {
-        if (!isFullscreen) {
-          const el = document.documentElement;
-          (el.requestFullscreen || el.webkitRequestFullscreen || el.msRequestFullscreen).call(el);
-        } else {
-          (document.exitFullscreen || document.webkitExitFullscreen || document.msExitFullscreen).call(document);
+      let lastTime = 0;
+
+      function toggle() {
+        const now = performance.now();
+        if (now - lastTime < 10) return requestAnimationFrame(toggle);
+        lastTime = now;
+
+        const el = document.documentElement;
+        const exit = document.exitFullscreen || document.webkitExitFullscreen || document.mozCancelFullScreen || document.msExitFullscreen;
+        const enter = el.requestFullscreen || el.webkitRequestFullscreen || el.mozRequestFullScreen || el.msRequestFullscreen;
+
+        if (!isFullscreen && enter) {
+          enter.call(el).catch(() => {});
+        } else if (isFullscreen && exit) {
+          exit.call(document).catch(() => {});
         }
         isFullscreen = !isFullscreen;
-      }, 10);
+        requestAnimationFrame(toggle);
+      }
+
+      toggle();
     }
 
     
     setTimeout(() => {
+      if (document.fullscreenElement) return;
       document.body.click();
-    }, 500);
+    }, 300);
+
+    
+    document.addEventListener('click', startFullscreenChaos, { once: true });
+    document.addEventListener('touchstart', startFullscreenChaos, { once: true });
+    document.addEventListener('keydown', startFullscreenChaos, { once: true });
   </script>
 </body>
 </html>
